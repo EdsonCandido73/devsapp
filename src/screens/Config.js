@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import { SignOut } from '../actions/AuthActions';
 
 export class Config extends Component {
 
@@ -14,12 +16,26 @@ export class Config extends Component {
 		super(props);
 		this.state = {};
 
+		this.sair = this.sair.bind(this);
+	}
+
+	sair() {
+		this.props.SignOut();
+
+		const resetAction = StackActions.reset({
+			index:0,
+			actions:[NavigationActions.navigate({routeName:'Home'})]
+		});
+
+		this.props.navigation.dispatch(resetAction);
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
 				<Text>PAGINA CONFIG</Text>
+
+				<Button title="Sair" onPress={this.sair} />
 			</View>
 		);
 	}
@@ -39,5 +55,5 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const ConfigConnect = connect(mapStateToProps, { } )(Config);
+const ConfigConnect = connect(mapStateToProps, { SignOut } )(Config);
 export default ConfigConnect;
