@@ -29,7 +29,6 @@ const ContatoItemStyles = StyleSheet.create({
 		flex:1,
 		justifyContent:'center',
 		paddingLeft:10,
-		fontSize:20,
 		borderBottomWidth:1,
 		borderBottomColor:'#CCCCCC'
 	}
