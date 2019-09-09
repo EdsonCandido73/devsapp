@@ -1,4 +1,4 @@
-Devsapp 1.0.0
+Devsapp 1.0
 desenvolvido por Edson Cândido
 
 Aplicativo de mensagens baseado no Watsapp.
