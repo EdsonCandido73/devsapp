@@ -53,6 +53,13 @@ export const createChat = (userUid1, userUid2) => {
 				id:chatId
 			});
 
+		dispatch({
+			type:'setActiveChat',
+			payload:{
+				chatid:chatId
+			}
+		});
+
 	}
 };
 
