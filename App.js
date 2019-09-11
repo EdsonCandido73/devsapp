@@ -25,7 +25,11 @@ const Navegador = createStackNavigator({
     screen:Home
   },
   Conversas:{
-    screen:Conversas
+    screen:Conversas,
+    navigationOptions:{
+      tabBarLabel:'Conversas',
+      header: null, 
+    }
   },
   SignUp:{
     screen:SignUp

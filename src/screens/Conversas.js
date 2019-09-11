@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-//import { connect } from 'react-redux';
 
 import ConversasStack from './ConversasStack';
 import ContatoList from './ContatoList';
@@ -12,7 +11,7 @@ const ConversasNavigator = createBottomTabNavigator({
 		screen:ConversasStack,
 		navigationOptions:{
 			tabBarLabel:'Conversas',
-			header:null
+			header: null,	
 		}
 	},
 	ContatoList:{

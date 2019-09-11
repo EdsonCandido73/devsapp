@@ -44,6 +44,7 @@ export class Config extends Component {
 
 const styles = StyleSheet.create({
 	container:{
+		marginTop:40,
 		margin:10
 	}
 });
