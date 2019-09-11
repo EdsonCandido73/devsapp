@@ -25,6 +25,8 @@ export class ContatoList extends Component {
 		
 		this.props.createChat( this.props.uid, item.key );
 
+		this.props.navigation.navigate('ConversasStack');
+
 	}
 
 	render() {
