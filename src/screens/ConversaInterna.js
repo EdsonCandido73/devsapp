@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, Image, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
 import { setActiveChat } from '../actions/ChatActions';
 
 export class ConversaInterna extends Component {
 
 	static navigationOptions = ({navigation}) => ({
-		title:'Conversa Interna',
+		title:navigation.state.params.title,
 		headerLeft:(
 			<TouchableHighlight onPress={()=>{navigation.state.params.voltarFunction()}} underlayColor={'transparent'}>
 				<Image source={require('../../node_modules/react-navigation-stack/src/views/assets/back-icon.png')} style={{width:25, height:25, marginLeft:20}} />
@@ -24,11 +24,18 @@ export class ConversaInterna extends Component {
 
 	componentDidMount() {
 		this.props.navigation.setParams({voltarFunction:this.voltar});
+		BackHandler.addEventListener('hardwareBackPress', this.voltar);
+	}
+
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.voltar);
 	}
 
 	voltar () {
 		this.props.setActiveChat('');
 		this.props.navigation.goBack();
+
+		return true;
 	}
 
 	render() {
