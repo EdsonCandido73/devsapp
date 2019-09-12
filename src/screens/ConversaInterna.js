@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Image, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, Image, BackHandler, FlatList, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { setActiveChat } from '../actions/ChatActions';
 
@@ -7,6 +7,7 @@ export class ConversaInterna extends Component {
 
 	static navigationOptions = ({navigation}) => ({
 		title:navigation.state.params.title,
+		//tabBarVisible:false,
 		headerLeft:(
 			<TouchableHighlight onPress={()=>{navigation.state.params.voltarFunction()}} underlayColor={'transparent'}>
 				<Image source={require('../../node_modules/react-navigation-stack/src/views/assets/back-icon.png')} style={{width:25, height:25, marginLeft:20}} />
@@ -41,7 +42,14 @@ export class ConversaInterna extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>PAGINA CONVERSA INTERNA</Text>
+				<FlatList
+					style={styles.chatArea}
+					data={[]}
+					renderItem={()=><Text>...</Text>}
+				/>
+				<View style={styles.sendArea}>
+					<TextInput style={styles.sendInput} />
+				</View>
 			</View>
 		);
 	}
@@ -50,7 +58,20 @@ export class ConversaInterna extends Component {
 
 const styles = StyleSheet.create({
 	container:{
-		margin:10
+		margin:10,
+		flex:1
+	},
+	chatArea:{
+		flex:1,
+		backgroundColor:'#FF0000'
+	},
+	sendArea:{
+		height:50,
+		backgroundColor:'#00FF00'
+	},
+	sendInput:{
+		height:50,
+		flex:1
 	}
 });
 
