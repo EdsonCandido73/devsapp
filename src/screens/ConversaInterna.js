@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Image, BackHandler, FlatList, TextInput } from 'react-native';
+import { KeyboardAvoidingView, View, Text, StyleSheet, TouchableHighlight, Image, BackHandler, FlatList, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { setActiveChat } from '../actions/ChatActions';
 
@@ -7,12 +7,15 @@ export class ConversaInterna extends Component {
 
 	static navigationOptions = ({navigation}) => ({
 		title:navigation.state.params.title,
-		//tabBarVisible:false,
 		headerLeft:(
 			<TouchableHighlight onPress={()=>{navigation.state.params.voltarFunction()}} underlayColor={'transparent'}>
 				<Image source={require('../../node_modules/react-navigation-stack/src/views/assets/back-icon.png')} style={{width:25, height:25, marginLeft:20}} />
 			</TouchableHighlight>
 		)
+	})
+
+	static defaultNavigationOptions = ({navigation}) => ({
+		tabBarVisible: false
 	})
 
 	constructor(props) {
@@ -41,7 +44,7 @@ export class ConversaInterna extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled="true">
 				<FlatList
 					style={styles.chatArea}
 					data={[]}
@@ -50,7 +53,7 @@ export class ConversaInterna extends Component {
 				<View style={styles.sendArea}>
 					<TextInput style={styles.sendInput} />
 				</View>
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 

@@ -22,4 +22,17 @@ const ConversasNavigator = createBottomTabNavigator({
 	}
 });
 
-export default createAppContainer(ConversasNavigator);
+ConversasStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarVisible,
+  };
+};
+
+const ConversationsAppContainer = createAppContainer(ConversasNavigator);
+
+export default ConversationsAppContainer;

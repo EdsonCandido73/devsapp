@@ -15,6 +15,7 @@ const ConversasStackNavigator = createStackNavigator({
 	}
 });
 
+/*
 ConversasStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
@@ -24,5 +25,6 @@ ConversasStackNavigator.navigationOptions = ({ navigation }) => {
     tabBarVisible,
   };
 };
+*/
 
 export default createAppContainer(ConversasStackNavigator);
