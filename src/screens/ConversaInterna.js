@@ -52,6 +52,9 @@ export class ConversaInterna extends Component {
 				/>
 				<View style={styles.sendArea}>
 					<TextInput style={styles.sendInput} />
+					<TouchableHighlight style={styles.sendButton}>
+						<Image style={styles.sendImage} source={require('../assets/images/send.png')} />
+					</TouchableHighlight>
 				</View>
 			</KeyboardAvoidingView>
 		);
@@ -61,8 +64,8 @@ export class ConversaInterna extends Component {
 
 const styles = StyleSheet.create({
 	container:{
-		margin:10,
-		flex:1
+		flex:1,
+		margin:10
 	},
 	chatArea:{
 		flex:1,
@@ -70,11 +73,22 @@ const styles = StyleSheet.create({
 	},
 	sendArea:{
 		height:50,
-		backgroundColor:'#00FF00'
+		backgroundColor:'#EEEEEE',
+		flexDirection:'row'
 	},
 	sendInput:{
 		height:50,
 		flex:1
+	},
+	sendButton:{
+		width:50,
+		height:50,
+		justifyContent:'center',
+		alignItems:'center'
+	},
+	sendImage:{
+		width:40,
+		height:40
 	}
 });
 
