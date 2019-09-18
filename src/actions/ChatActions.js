@@ -123,6 +123,37 @@ export const sendMessage = (txt, author, activeChat) => {
 	};
 };
 
+export const monitorChat = (activeChat) => {
+	return (dispatch) => {
+		firebase.database().ref('chats').child(activeChat).child('messages').orderByChild('date').on('value', (snapshot)=>{
+			let arrayMsg = [];
+
+			snapshot.forEach((childItem)=>{
+				arrayMsg.push({
+					key:childItem.key,
+					date:childItem.val().date,
+					m:childItem.val().m,
+					uid:childItem.val().uid
+				});				
+			});
+
+			dispatch({
+				type:'setActiveChatMessage',
+				payload:{
+					'msgs':arrayMsg
+				}
+			});
+		});
+	};
+};
+
+export const monitorChatOff = (activeChat) => {
+	return (dispatch) => {
+		firebase.database().ref('chats').child(activeChat).child('messages').off();
+	};	
+};
+
+
 /*
 export const SignInAction = (email, password) => {
 	return (dispatch) => {

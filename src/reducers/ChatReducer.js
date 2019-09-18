@@ -2,7 +2,8 @@ const initialState = {
 	chats:[],
 	contacts:[],
 	activeChat:'',
-	activeChatTitle:''
+	activeChatTitle:'',
+	activeChatMessages:[]
 };
 
 const ChatReducer = (state = initialState, action) => {
@@ -26,6 +27,10 @@ const ChatReducer = (state = initialState, action) => {
 		}
 		
 		return { ...state, activeChat:action.payload.chatid, activeChatTitle:chatTitle};
+	}
+
+	if(action.type == 'setActiveChatMessage') {
+		return { ...state, activeChatMessages:action.payload.msgs};
 	}
 
 	return state;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, View, Text, StyleSheet, TouchableHighlight, Image, BackHandler, FlatList, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { setActiveChat, sendMessage } from '../actions/ChatActions';
+import { setActiveChat, sendMessage, monitorChat, monitorChatOff } from '../actions/ChatActions';
 import MensagemItem from '../components/ConversaInterna/MensagemItem';
 
 export class ConversaInterna extends Component {
@@ -22,12 +22,6 @@ export class ConversaInterna extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tmpMsg:[
-				{key:1, uid:123, date:'2019-09-17 20:58', m:'Oi, tudo bem?'},
-				{key:2, uid:'6vKv3fowfVc5rxBLRBKujZgaK0L2', date:'2019-09-17 20:58', m:'Tudo, e você?'},
-				{key:3, uid:123, date:'2019-09-17 20:58', m:'OK, legal'},
-				{key:4, uid:'6vKv3fowfVc5rxBLRBKujZgaK0L2', date:'2019-09-17 20:58', m:'Esta é uma mensagem bem grande que tem como objetivo mostrar alguma coisa na tela das conversas.'}
-			],
 			inputText:''
 		};
 
@@ -39,10 +33,14 @@ export class ConversaInterna extends Component {
 	componentDidMount() {
 		this.props.navigation.setParams({voltarFunction:this.voltar});
 		BackHandler.addEventListener('hardwareBackPress', this.voltar);
+
+		this.props.monitorChat(this.props.activeChat);
 	}
 
 	componentWillUnmount() {
 		BackHandler.removeEventListener('hardwareBackPress', this.voltar);
+
+		this.props.monitorChatOff(this.props.activeChat);
 	}
 
 	voltar () {
@@ -57,7 +55,6 @@ export class ConversaInterna extends Component {
 		let state = this.state;
 		state.inputText = '';
 		this.setState(state);
-		alert(txt);
 
 		this.props.sendMessage(txt, this.props.uid, this.props.activeChat);
 	}
@@ -68,7 +65,7 @@ export class ConversaInterna extends Component {
    				keyboardVerticalOffset={80}>
 				<FlatList
 					style={styles.chatArea}
-					data={this.state.tmpMsg}
+					data={this.props.activeChatMessages}
 					renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />}
 				/>
 				<View style={styles.sendArea}>
@@ -117,9 +114,10 @@ const mapStateToProps = (state) => {
 	return {
 		status:state.auth.status,
 		uid:state.auth.uid,
-		activeChat:state.chat.activeChat
+		activeChat:state.chat.activeChat,
+		activeChatMessages:state.chat.activeChatMessages
 	};
 };
 
-const ConversaInternaConnect = connect(mapStateToProps, { setActiveChat, sendMessage } )(ConversaInterna);
+const ConversaInternaConnect = connect(mapStateToProps, { setActiveChat, sendMessage, monitorChat, monitorChatOff } )(ConversaInterna);
 export default ConversaInternaConnect;
