@@ -104,6 +104,25 @@ export const setActiveChat = (chatId) => {
 	};
 };
 
+export const sendMessage = (txt, author, activeChat) => {
+	return (dispatch) => {
+		let currentDate = '';
+		let cDate = new Date();
+
+		currentDate = cDate.getFullYear()+'-'+(cDate.getMonth()+1)+'-'+cDate.getDate();
+		currentDate += ' '+cDate.getHours()+':'+cDate.getMinutes()+':'+cDate.getSeconds();
+
+		let msgId = firebase.database().ref('chats').child(activeChat).child('messages').push();
+
+		msgId.set({
+			date:currentDate,
+			m:txt,
+			uid:author
+		});
+
+	};
+};
+
 /*
 export const SignInAction = (email, password) => {
 	return (dispatch) => {
