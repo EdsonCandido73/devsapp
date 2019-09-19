@@ -43,7 +43,7 @@ const MensagemItemStyles = StyleSheet.create({
 		marginBottom:5,		
 		padding:10,
 		maxWidth:'80%',
-		borderRadius:7
+		borderRadius:5
 	},
 	dateTxt:{
 		fontSize:9,
