@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { checkLogin, changeEmail, changePassword, SignInAction } from '../actions/AuthActions';
 
@@ -24,7 +24,8 @@ export class SignIn extends Component {
 	
 	render() {
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.container} behavior='padding' enabled
+   				keyboardVerticalOffset={80}>
 				<Text>Digite seu e-mail</Text>
 				<TextInput style={styles.input} value={this.props.email} onChangeText={this.props.changeEmail} />
 
@@ -34,7 +35,7 @@ export class SignIn extends Component {
 				<Button title='Entrar' onPress={()=> {
 					this.props.SignInAction(this.props.email, this.props.password)
 				}} />
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 
