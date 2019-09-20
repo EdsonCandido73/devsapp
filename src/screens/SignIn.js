@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TextInput, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
+import LoadingItem from '../components/LoadingItem';
 import { checkLogin, changeEmail, changePassword, SignInAction } from '../actions/AuthActions';
 
 export class SignIn extends Component {
@@ -11,7 +12,9 @@ export class SignIn extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			loading:false
+		};
 	}
 
 	componentDidUpdate() {
@@ -33,8 +36,13 @@ export class SignIn extends Component {
 				<TextInput secureTextEntry={true} style={styles.input} value={this.props.password} onChangeText={this.props.changePassword} />
 			
 				<Button title='Entrar' onPress={()=> {
-					this.props.SignInAction(this.props.email, this.props.password)
+					this.setState({loading:true});
+					this.props.SignInAction(this.props.email, this.props.password, ()=>{
+						this.setState({loading:false})
+					});
 				}} />
+
+				<LoadingItem visible={this.state.loading} />
 			</KeyboardAvoidingView>
 		);
 	}
